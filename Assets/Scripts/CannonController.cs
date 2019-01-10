@@ -9,9 +9,11 @@ public class CannonController : MonoBehaviour
     public int maxRot = 50; //the max degree range it can be rotated
     public float minX; //far left point that cannon can be moved to
     public float maxX; //far right point that cannon can be moved to
+    public float speed = 1.0f; //mult to keep cannon movement alligned with the mouse movement
 
     //private variables
     private bool drag; //is the mouse dragging the cannon
+    private int oldMouseX; //store where the mouse was
 
     // Start is called before the first frame update
     void Start() {
@@ -26,12 +28,18 @@ public class CannonController : MonoBehaviour
       //drag
       if (drag) {
         Debug.Log(Input.mousePosition.x); //print current mouse pos
+        //new posX = current pos x + (mouse current pos x - mouse old pos x)
+        float posX = transform.position.x + ((Input.mousePosition.x - oldMouseX)*speed);
+        posX = Mathf.Min (Mathf.Max (minX, posX), maxX); //keep x within the valid range
+        transform.position = new Vector3(posX, transform.position.y, transform.position.z); //move the Cannon
+        oldMouseX = (int)Input.mousePosition.x; //store this mouse x for the next update
       }
     }
 
     void OnMouseDown() {
       //mouse button pressed, start drag mode
       drag = true;
+      oldMouseX = (int)Input.mousePosition.x; //store this mouse x for the next update
     }
 
     void OnMouseUp() {
