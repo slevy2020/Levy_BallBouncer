@@ -23,7 +23,7 @@ public class PersistentData : MonoBehaviour {
 
     }
 
-    void Reset() {
+    public void Reset() {
       //reset all persistent data
       score = 0;
       win = false;
