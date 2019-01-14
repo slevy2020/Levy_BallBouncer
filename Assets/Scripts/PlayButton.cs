@@ -9,6 +9,7 @@ public class PlayButton : MonoBehaviour {
 
     //private variables
     private PersistentData persistentScript; //pointer to the persistent data
+    private BallController scoreScript; //pointer to the score on the ball controller
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,10 @@ public class PlayButton : MonoBehaviour {
       start.onClick.AddListener(StartGame);
       //get control of the persistent data
       persistentScript = GameObject.Find("PersistentObject").GetComponent<PersistentData>();
+      //get control of the ball controller
+//      scoreScript = GameObject.Find("Ball").GetComponent<BallController>();
+      //update the persistent score
+//      scoreScript.score = persistentScript.GetScore();
     }
 
     // Update is called once per frame

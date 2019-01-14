@@ -14,7 +14,7 @@ public class GetScore : MonoBehaviour {
       //get control of the persistent data
       persistentScript = GameObject.Find("PersistentObject").GetComponent<PersistentData>();
       //get the current score
-      gameObject.GetComponent<Text>().text = "Score: " + persistentScript.GetScore().ToString();
+      gameObject.GetComponent<Text>().text = "Total Score: " + persistentScript.GetScore().ToString();
     }
 
     // Update is called once per frame
