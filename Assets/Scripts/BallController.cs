@@ -9,9 +9,9 @@ public class BallController : MonoBehaviour {
   //public variables - set in the inspector
   public int hitScore = 10; //how many points for each piece hit
   public GameObject firework; //particle prefab
+  public int score; //the score this ball has earned
 
   //private variables
-  private int score; //the score this ball has earned
   private Text scoreUI; //pointer to the UI Text Object
   private PersistentData persistentScript; //pointer to the persistent data
 
@@ -20,11 +20,13 @@ public class BallController : MonoBehaviour {
       //add a force to a ball from the direction it is aimed
       GetComponent<Rigidbody>().AddForce(-transform.up*500);
       //reset the score
-      score = 0;
+//      score = 0;
       //find the scoreUI object
       scoreUI = GameObject.Find("UI Text - Score").GetComponent<Text>();
       //get control of the persistent data
       persistentScript = GameObject.Find("PersistentObject").GetComponent<PersistentData>();
+      //update persistent score
+      gameObject.GetComponent<Text>().text = "Score: " + persistentScript.GetScore().ToString();
     }
 
     // Update is called once per frame
@@ -45,7 +47,7 @@ public class BallController : MonoBehaviour {
         persistentScript.AddScore(score); //add to the collective score
         persistentScript.SetWin(true); //We won!
         persistentScript.LevelComplete(); //another level completed
-        SceneManager.LoadScene("end");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
       }
       if (collision.gameObject.tag == "Obstacle") {
             //gain score
