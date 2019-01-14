@@ -14,6 +14,7 @@ public class CannonController : MonoBehaviour
     //private variables
     private bool drag; //is the mouse dragging the cannon
     private int oldMouseX; //store where the mouse was
+    private DropButton dropScript; //pointer to the drop button
 
     // Start is called before the first frame update
     void Start() {
@@ -21,6 +22,8 @@ public class CannonController : MonoBehaviour
       transform.Rotate(0, 0, Random.Range(minRot, maxRot));
       //don't drag on start
       drag = false;
+      //get control of the drop script
+      dropScript = GameObject.Find("drop").GetComponent<DropButton>();
     }
 
     // Update is called once per frame
@@ -37,9 +40,11 @@ public class CannonController : MonoBehaviour
     }
 
     void OnMouseDown() {
-      //mouse button pressed, start drag mode
-      drag = true;
-      oldMouseX = (int)Input.mousePosition.x; //store this mouse x for the next update
+      if (!dropScript.dropped) {
+        //mouse button pressed, start drag mode
+        drag = true;
+        oldMouseX = (int)Input.mousePosition.x; //store this mouse x for the next update
+      }
     }
 
     void OnMouseUp() {

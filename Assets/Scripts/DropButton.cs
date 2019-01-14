@@ -9,11 +9,12 @@ public class DropButton : MonoBehaviour
     //public variables -- set in the inspector
     public GameObject ball; //pointer to the ball prefab
     public GameObject spawn; //pointer to the spawn point object
+    public bool dropped; //has the ball dropped
 
     //private variables
     private Vector3 pos;
     private Quaternion rot;
-    private bool dropped; //has the ball dropped
+//    private bool dropped; //has the ball dropped
 
     // Start is called before the first frame update
     void Start() {
