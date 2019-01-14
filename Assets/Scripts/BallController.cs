@@ -2,18 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class BallController : MonoBehaviour
-{
+public class BallController : MonoBehaviour {
+
+  //public variables - set in the inspector
+  public int hitScore = 10; //how many points for each piece hit
+  public GameObject firework; //particle prefab
+
+  //private variables
+  private int score; //the score this ball has earned
+  private Text scoreUI; //pointer to the UI Text Object
+
     // Start is called before the first frame update
     void Start() {
       //add a force to a ball from the direction it is aimed
       GetComponent<Rigidbody>().AddForce(-transform.up*500);
+      //reset the score
+      score = 0;
+      //find the scoreUI object
+      scoreUI = GameObject.Find("UI Text - Score").GetComponent<Text>();
     }
 
     // Update is called once per frame
     void Update() {
-
+      scoreUI.text = "Score: " + score.ToString();
     }
 
     void OnCollisionEnter (Collision collision) {
@@ -25,6 +38,18 @@ public class BallController : MonoBehaviour
       if (collision.gameObject.name == "GoalTop") {
         //hit the goal, win, end the game
         SceneManager.LoadScene("end");
+      }
+      if (collision.gameObject.tag == "Obstacle") {
+            //gain score
+            score += hitScore;
+      }
+      if (collision.gameObject.name == "star") {
+        //double score
+        score *= 2;
+        //remove the star
+        Destroy(collision.gameObject);
+        //create a particle System
+        Instantiate(firework, transform.position, Quaternion.identity);
       }
     }
 }
