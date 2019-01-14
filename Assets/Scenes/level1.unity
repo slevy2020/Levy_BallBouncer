@@ -1886,6 +1886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ball: {fileID: 2400874378234715400, guid: bdf3eb8c1e2ae405abfb522f0e6d9c54, type: 3}
   spawn: {fileID: 2006475075}
+  dropped: 0
 --- !u!1001 &1581551804
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2302,7 +2303,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 739786859, guid: 749096bc989194b1f9307c50993dcd64, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.29
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 739786859, guid: 749096bc989194b1f9307c50993dcd64, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2363,7 +2364,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e3d857f773411254e9661d0ab3529542, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.93
+      value: -5.01
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e3d857f773411254e9661d0ab3529542, type: 3}
       propertyPath: m_LocalPosition.y
