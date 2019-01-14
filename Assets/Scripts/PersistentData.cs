@@ -35,6 +35,11 @@ public class PersistentData : MonoBehaviour {
       score += amount;
     }
 
+    public int GetScore () {
+      //return the value of the current collective score
+      return score;
+    }
+
     public void SetWin (bool state) {
       //record the win state provided
       win = state;
@@ -43,5 +48,10 @@ public class PersistentData : MonoBehaviour {
     public void LevelComplete () {
       //advance the number of levels completed
       level +=1;
+    }
+
+    public int GetLevel () {
+      //return the number of levels completed
+      return level;
     }
 }
