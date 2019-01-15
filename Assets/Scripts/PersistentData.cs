@@ -47,7 +47,7 @@ public class PersistentData : MonoBehaviour {
 
     public void LevelComplete () {
       //advance the number of levels completed
-      level +=1;
+      level += 1;
     }
 
     public int GetLevel () {

@@ -14,6 +14,8 @@ public class BallController : MonoBehaviour {
   private Text scoreUI; //pointer to the UI Text Object
   private PersistentData persistentScript; //pointer to the persistent data
   private int score; //the score this ball has earned
+  private Scene endScene;
+  private Scene nextScene;
 
     // Start is called before the first frame update
     void Start() {
@@ -23,6 +25,10 @@ public class BallController : MonoBehaviour {
       scoreUI = GameObject.Find("UI Text - Score").GetComponent<Text>();
       //get control of the persistent data
       persistentScript = GameObject.Find("PersistentObject").GetComponent<PersistentData>();
+      //get control of the end scene
+      endScene = SceneManager.GetSceneByName("end");
+      //get control of next Scene
+      nextScene = SceneManager.GetActiveScene();
     }
 
     // Update is called once per frame
@@ -42,8 +48,10 @@ public class BallController : MonoBehaviour {
         score *= 3;
         persistentScript.AddScore(score); //add to the collective score
         persistentScript.SetWin(true); //We won!
-        persistentScript.LevelComplete(); //another level completed
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        if ((nextScene.buildIndex + 1) != endScene.buildIndex) {
+          persistentScript.LevelComplete(); //add to level counter
+        }
+        SceneManager.LoadScene(nextScene.buildIndex + 1);
       }
       if (collision.gameObject.tag == "Obstacle") {
             //gain score
