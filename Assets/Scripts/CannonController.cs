@@ -14,12 +14,13 @@ public class CannonController : MonoBehaviour
     //private variables
     private bool drag; //is the mouse dragging the cannon
     private int oldMouseX; //store where the mouse was
+    private int oldRot; //store previous rotation
     private DropButton dropScript; //pointer to the drop button
 
     // Start is called before the first frame update
     void Start() {
       //rotate the cannon on a random z
-      transform.Rotate(0, 0, Random.Range(minRot, maxRot));
+//      transform.Rotate(0, 0, Random.Range(minRot, maxRot));
       //don't drag on start
       drag = false;
       //get control of the drop script
@@ -36,6 +37,15 @@ public class CannonController : MonoBehaviour
         posX = Mathf.Min (Mathf.Max (minX, posX), maxX); //keep x within the valid range
         transform.position = new Vector3(posX, transform.position.y, transform.position.z); //move the Cannon
         oldMouseX = (int)Input.mousePosition.x; //store this mouse x for the next update
+      }
+      if ((Input.GetKey("left")) && (transform.rotation.z <= maxRot)) {
+        transform.Rotate(0, 0, 2);
+      }
+      if ((Input.GetKey("right")) && (transform.rotation.z >= minRot)) {
+        transform.Rotate(0, 0, -2);
+      }
+      if (transform.rotation.z >= maxRot) {
+        transform.eulerAngles = new Vector3(0, 0, maxRot);
       }
     }
 
