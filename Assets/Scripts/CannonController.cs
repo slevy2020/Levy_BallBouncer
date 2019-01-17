@@ -10,6 +10,7 @@ public class CannonController : MonoBehaviour
     public float minX; //far left point that cannon can be moved to
     public float maxX; //far right point that cannon can be moved to
     public float speed = 1.0f; //mult to keep cannon movement alligned with the mouse movement
+    public float rotSpeed = 2.0f;
 
     //private variables
     private bool drag; //is the mouse dragging the cannon
@@ -38,20 +39,27 @@ public class CannonController : MonoBehaviour
         transform.position = new Vector3(posX, transform.position.y, transform.position.z); //move the Cannon
         oldMouseX = (int)Input.mousePosition.x; //store this mouse x for the next update
       }
-      if ((Input.GetKey("left")) && (transform.rotation.z < maxRot)) {
-        Debug.Log(transform.rotation.z);
-        transform.Rotate(0, 0, 2);
+      if ((Input.GetKey("left")) && isInRange(transform.rotation.eulerAngles.z + rotSpeed)) {
+        Debug.Log(transform.rotation.eulerAngles.z);
+        transform.Rotate(0, 0, 1*rotSpeed);
       }
-      if ((Input.GetKey("right")) && (transform.rotation.z > minRot)) {
-        transform.Rotate(0, 0, -2);
+      if ((Input.GetKey("right")) && isInRange(transform.rotation.eulerAngles.z + rotSpeed)) {
+        Debug.Log(transform.rotation.eulerAngles.z);
+        transform.Rotate(0, 0, -1*rotSpeed);
       }
-      // if (transform.rotation.z >= maxRot) {
-      //   transform.eulerAngles = new Vector3(0, 0, maxRot);
-      // }
+    }
+
+    private bool isInRange(float angle) {
+      if ((0 <= angle && angle < 50) || (310 < angle && angle <= 360)) {
+        return true;
+      }
+      else {
+        return false;
+      }
     }
 
     void OnMouseDown() {
-      if (!dropScript.dropped) {
+      if (!dropScript.isDropped()) {
         //mouse button pressed, start drag mode
         drag = true;
         oldMouseX = (int)Input.mousePosition.x; //store this mouse x for the next update
