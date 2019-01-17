@@ -14,7 +14,7 @@ public class GetLevels : MonoBehaviour {
     //get control of the persistent data
     persistentScript = GameObject.Find("PersistentObject").GetComponent<PersistentData>();
     //get the current score
-    gameObject.GetComponent<Text>().text = "Level " + persistentScript.GetLevel().ToString();
+    gameObject.GetComponent<Text>().text = "Levels Won: " + persistentScript.GetLevel().ToString();
   }
 
   // Update is called once per frame

@@ -38,15 +38,16 @@ public class CannonController : MonoBehaviour
         transform.position = new Vector3(posX, transform.position.y, transform.position.z); //move the Cannon
         oldMouseX = (int)Input.mousePosition.x; //store this mouse x for the next update
       }
-      if ((Input.GetKey("left")) && (transform.rotation.z <= maxRot)) {
+      if ((Input.GetKey("left")) && (transform.rotation.z < maxRot)) {
+        Debug.Log(transform.rotation.z);
         transform.Rotate(0, 0, 2);
       }
-      if ((Input.GetKey("right")) && (transform.rotation.z >= minRot)) {
+      if ((Input.GetKey("right")) && (transform.rotation.z > minRot)) {
         transform.Rotate(0, 0, -2);
       }
-      if (transform.rotation.z >= maxRot) {
-        transform.eulerAngles = new Vector3(0, 0, maxRot);
-      }
+      // if (transform.rotation.z >= maxRot) {
+      //   transform.eulerAngles = new Vector3(0, 0, maxRot);
+      // }
     }
 
     void OnMouseDown() {

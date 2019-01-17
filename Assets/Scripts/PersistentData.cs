@@ -27,7 +27,7 @@ public class PersistentData : MonoBehaviour {
       //reset all persistent data
       score = 0;
       win = false;
-      level = 1;
+      level = 0;
     }
 
     public void AddScore (int amount) {

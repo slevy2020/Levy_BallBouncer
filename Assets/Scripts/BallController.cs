@@ -48,9 +48,7 @@ public class BallController : MonoBehaviour {
         score *= 3;
         persistentScript.AddScore(score); //add to the collective score
         persistentScript.SetWin(true); //We won!
-        if ((nextScene.buildIndex + 1) != endScene.buildIndex) {
-          persistentScript.LevelComplete(); //add to level counter
-        }
+        persistentScript.LevelComplete(); //add to level counter
         SceneManager.LoadScene(nextScene.buildIndex + 1);
       }
       if (collision.gameObject.tag == "Obstacle") {
