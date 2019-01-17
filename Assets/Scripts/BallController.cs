@@ -55,7 +55,7 @@ public class BallController : MonoBehaviour {
             //gain score
             score += hitScore;
       }
-      if (collision.gameObject.name == "star") {
+      if (collision.gameObject.tag == "Star") {
         //double score
         score *= 2;
         //remove the star
