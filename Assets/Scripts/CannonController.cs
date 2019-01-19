@@ -32,25 +32,26 @@ public class CannonController : MonoBehaviour
     void Update(){
       //drag
       if (drag) {
-        Debug.Log(Input.mousePosition.x); //print current mouse pos
         //new posX = current pos x + (mouse current pos x - mouse old pos x)
         float posX = transform.position.x + ((Input.mousePosition.x - oldMouseX)*speed);
         posX = Mathf.Min (Mathf.Max (minX, posX), maxX); //keep x within the valid range
         transform.position = new Vector3(posX, transform.position.y, transform.position.z); //move the Cannon
         oldMouseX = (int)Input.mousePosition.x; //store this mouse x for the next update
       }
-      if ((Input.GetKey("left")) && isInRange(transform.rotation.eulerAngles.z + rotSpeed)) {
-        Debug.Log(transform.rotation.eulerAngles.z);
+      //rotate cannon
+      if ((Input.GetKey("left")) && isInRange(UnityEditor.TransformUtils.GetInspectorRotation(transform).z + rotSpeed)) {
+      //  Debug.Log(transform.rotation.eulerAngles.z);
         transform.Rotate(0, 0, 1*rotSpeed);
       }
-      if ((Input.GetKey("right")) && isInRange(transform.rotation.eulerAngles.z + rotSpeed)) {
-        Debug.Log(transform.rotation.eulerAngles.z);
+      if ((Input.GetKey("right")) && isInRange(UnityEditor.TransformUtils.GetInspectorRotation(transform).z - rotSpeed)) {
+      //  Debug.Log(transform.rotation.eulerAngles.z);
         transform.Rotate(0, 0, -1*rotSpeed);
       }
     }
 
     private bool isInRange(float angle) {
-      if ((0 <= angle && angle < 50) || (310 < angle && angle <= 360)) {
+      Debug.Log("Query angle " + UnityEditor.TransformUtils.GetInspectorRotation(transform).z);
+      if ((-50 <= angle && angle <= 50)) {
         return true;
       }
       else {
