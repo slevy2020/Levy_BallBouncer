@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class PersistentData : MonoBehaviour {
     //public variables
+    public bool win; //win or lose
 
     //private variables
     private int score; //the collective score
-    private bool win; //win or lose
     private int level; //how many levels were completed
 
     // Start is called before the first frame update
