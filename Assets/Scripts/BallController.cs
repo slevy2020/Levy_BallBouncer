@@ -11,6 +11,7 @@ public class BallController : MonoBehaviour {
   public int hitScore = 10; //how many points for each piece hit
   public GameObject firework; //particle prefab
   public GameObject fireworkWin; //particle prefab if hit goal
+  public Scene prevScene;
 
   //private variables
   private Text scoreUI; //pointer to the UI Text Object
@@ -29,10 +30,8 @@ public class BallController : MonoBehaviour {
       scoreUI = GameObject.Find("UI Text - Score").GetComponent<Text>();
       //get control of the persistent data
       persistentScript = GameObject.Find("PersistentObject").GetComponent<PersistentData>();
-      //get control of transition screen Object
-      Renderer transitionScreen = GameObject.Find("Transition").GetComponent<Renderer>();
       //get control of the end scene
-      endScene = SceneManager.GetSceneByName("end");
+//    endScene = SceneManager.GetSceneByName("end");
       //get control of next Scene
       nextScene = SceneManager.GetActiveScene();
     }
@@ -53,13 +52,16 @@ public class BallController : MonoBehaviour {
         //hit the goal, win, triple score and end the game
         Instantiate(fireworkWin, transform.position, Quaternion.identity);
         TransitionTimer();
-        transitionScreen.SetActive(true);
-        TransitionTimer();
         score *= 3;
         persistentScript.AddScore(score); //add to the collective score
         persistentScript.LevelComplete(); //add to level counter
-        if (persistentScript.win) {
-          SceneManager.LoadScene(nextScene.buildIndex + 1);
+        Debug.Log("next scene: " + (nextScene.buildIndex + 1));
+        persistentScript.SetLastScene();
+        if ((nextScene.buildIndex + 1) == 6) {
+          SceneManager.LoadScene(6);
+        }
+        else {
+          SceneManager.LoadScene("transition");
         }
       }
       if (collision.gameObject.tag == "Obstacle") {
@@ -76,15 +78,8 @@ public class BallController : MonoBehaviour {
       }
     }
 
-    // IEnumerator TransitionDelay() {
-    //   Debug.Log("yup");
-    //   yield return new WaitForSeconds(2);
-    //   transitionScreen.GetComponent<Renderer>().enabled = true;
-    //   yield return new WaitForSeconds(2);
-    //   persistentScript.SetWin(true); //We won!
-    // }
     private static void TransitionTimer() {
-      transitionTimer = new System.Timers.Timer(1000);
+      transitionTimer = new System.Timers.Timer(3000);
       transitionTimer.AutoReset = false;
     }
 }

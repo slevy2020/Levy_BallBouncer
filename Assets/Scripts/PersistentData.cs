@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PersistentData : MonoBehaviour {
     //public variables
@@ -9,6 +10,8 @@ public class PersistentData : MonoBehaviour {
     //private variables
     private int score; //the collective score
     private int level; //how many levels were completed
+    private Scene prevScene;
+    private int nextScene;
 
     // Start is called before the first frame update
     void Start() {
@@ -53,5 +56,16 @@ public class PersistentData : MonoBehaviour {
     public int GetLevel () {
       //return the number of levels completed
       return level;
+    }
+
+    public void SetLastScene () {
+      prevScene = SceneManager.GetActiveScene();
+      nextScene = (prevScene.buildIndex + 1);
+      Debug.Log("previous scene: " + prevScene.buildIndex);
+    }
+
+    public void LoadNextScene () {
+      SceneManager.LoadScene(nextScene);
+      Debug.Log("next scene (persist): " + nextScene);
     }
 }
