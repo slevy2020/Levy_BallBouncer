@@ -78,8 +78,12 @@ public class BallController : MonoBehaviour {
       }
     }
 
-    private static void TransitionTimer() {
-      transitionTimer = new System.Timers.Timer(3000);
-      transitionTimer.AutoReset = false;
+    // private static void TransitionTimer() {
+    //   transitionTimer = new System.Timers.Timer(3000);
+    //   transitionTimer.AutoReset = false;
+    // }
+
+    IEnumerator TransitionTimer() {
+      yield return new WaitForSeconds(3);
     }
 }
