@@ -6,8 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class TransitionController : MonoBehaviour
 {
+    //public variables
+    public float transitionTimer = 2.0f;
+
     //private variables
-    private static System.Timers.Timer transitionTimer;
     private PersistentData persistentScript;
 
     // Start is called before the first frame update
@@ -15,14 +17,15 @@ public class TransitionController : MonoBehaviour
     {
       //get control of the persistent data
       persistentScript = GameObject.Find("PersistentObject").GetComponent<PersistentData>();
-      TransitionTimer();
-      persistentScript.LoadNextScene();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+      transitionTimer -= Time.deltaTime;
+      if (transitionTimer < 0) {
+        persistentScript.LoadNextScene();
+      }
     }
 
     // private static void TransitionTimer() {

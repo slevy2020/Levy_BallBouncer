@@ -12,6 +12,7 @@ public class BallController : MonoBehaviour {
   public GameObject firework; //particle prefab
   public GameObject fireworkWin; //particle prefab if hit goal
   public Scene prevScene;
+  public float transitionTimer = 2.0f;
 
   //private variables
   private Text scoreUI; //pointer to the UI Text Object
@@ -20,7 +21,6 @@ public class BallController : MonoBehaviour {
   private int score; //the score this ball has earned
   private Scene endScene;
   private Scene nextScene;
-  private static System.Timers.Timer transitionTimer;
 
     // Start is called before the first frame update
     void Start() {
@@ -51,17 +51,23 @@ public class BallController : MonoBehaviour {
       if (collision.gameObject.name == "GoalTop") {
         //hit the goal, win, triple score and end the game
         Instantiate(fireworkWin, transform.position, Quaternion.identity);
-        TransitionTimer();
-        score *= 3;
-        persistentScript.AddScore(score); //add to the collective score
-        persistentScript.LevelComplete(); //add to level counter
-        Debug.Log("next scene: " + (nextScene.buildIndex + 1));
-        persistentScript.SetLastScene();
-        if ((nextScene.buildIndex + 1) == 6) {
-          SceneManager.LoadScene(6);
-        }
-        else {
-          SceneManager.LoadScene("transition");
+        Debug.Log("Before: " + Time.deltaTime);
+        do {
+          transitionTimer -= Time.deltaTime;
+        } while (transitionTimer >= 0);
+        Debug.Log("after: " + Time.deltaTime);
+        if (transitionTimer < 0) {
+          score *= 3;
+          persistentScript.AddScore(score); //add to the collective score
+          persistentScript.LevelComplete(); //add to level counter
+          Debug.Log("next scene: " + (nextScene.buildIndex + 1));
+          persistentScript.SetLastScene();
+          if ((nextScene.buildIndex + 1) == 6) {
+            SceneManager.LoadScene(6);
+          }
+          else {
+            SceneManager.LoadScene("transition");
+          }
         }
       }
       if (collision.gameObject.tag == "Obstacle") {
@@ -82,8 +88,8 @@ public class BallController : MonoBehaviour {
     //   transitionTimer = new System.Timers.Timer(3000);
     //   transitionTimer.AutoReset = false;
     // }
-
-    IEnumerator TransitionTimer() {
-      yield return new WaitForSeconds(3);
-    }
+    //
+    // IEnumerator TransitionTimer() {
+    //   yield return new WaitForSeconds(3);
+    // }
 }
