@@ -1014,6 +1014,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42bb6c2397f5e478590b156976d6737c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  win: 0
 --- !u!4 &339712562
 Transform:
   m_ObjectHideFlags: 0
@@ -1382,7 +1383,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 588876694}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.3, y: 1, z: -21.6}
+  m_LocalPosition: {x: -3.3, y: 0, z: -21.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2469,7 +2470,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ball: {fileID: 2400874378234715400, guid: bdf3eb8c1e2ae405abfb522f0e6d9c54, type: 3}
   spawn: {fileID: 2006475075}
-  dropped: 0
 --- !u!1001 &1566646566
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2696,6 +2696,7 @@ MonoBehaviour:
   minX: -6.5
   maxX: 8.2
   speed: 0.03
+  rotSpeed: 2
 --- !u!4 &1731434005 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5232102440387548143, guid: ff3b1abaf325d44be8bc55715d1c1e34,
